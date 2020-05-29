@@ -1,0 +1,37 @@
+server:
+  port: 8077
+
+spring:
+  application:
+    name: school
+  thymeleaf:
+    cache: false
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+    open-in-view: false
+    ddl-auto: validate
+
+  datasource:
+#    driver-class-name:
+#    url: jdbc:mysql://127.0.0.1:3306/student_info?zeroDateTimeBehavior=CONVERT_TO_NULL&&&useAffectedRows=true
+    url: jdbc:mysql://10.100.71.31:8306/school_demo?zeroDateTimeBehavior=CONVERT_TO_NULL&&&useAffectedRows=true
+    username: root
+    password: password
+
+  redis:
+    host: 10.100.71.31
+    port: 8379
+
+  profiles:
+    active: default
+
+
+logging:
+  level:
+    root: info
+    web: debug
+
+
+
