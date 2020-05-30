@@ -1,2 +1,3 @@
 # School-demo
-学生联系项目
+学生练习项目
+springboot 使用
