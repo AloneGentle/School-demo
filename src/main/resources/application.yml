@@ -8,10 +8,14 @@ spring:
     cache: false
 
   jpa:
-    database-platform: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
+    hibernate:
+      ddl-auto: validate
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     open-in-view: false
-    ddl-auto: validate
+    database: mysql
 
   datasource:
 #    driver-class-name:
