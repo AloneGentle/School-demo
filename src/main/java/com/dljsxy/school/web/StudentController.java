@@ -3,18 +3,25 @@ package com.dljsxy.school.web;
 import com.dljsxy.school.entity.Student;
 import com.dljsxy.school.model.StudentModel;
 import com.dljsxy.school.service.StudentService;
+import com.dljsxy.school.web.reqRes.AddStudentReq;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * @author ningtao
+ */
 @Controller
 @RequestMapping("/student")
 public class StudentController {
 
-    @Autowired
-    private StudentService studentService;
+    private final StudentService studentService;
+
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
 
     @RequestMapping("/info")
     public String info(Model mv) {
@@ -25,5 +32,8 @@ public class StudentController {
         return "Hello";
     }
 
-
+    @RequestMapping("/add-student")
+    public Long addStudent(AddStudentReq req) {
+        return studentService.addStudent(req);
+    }
 }
