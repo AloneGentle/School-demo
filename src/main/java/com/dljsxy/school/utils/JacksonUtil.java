@@ -1,4 +1,4 @@
-package com.dljsxy.school.Utils;
+package com.dljsxy.school.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

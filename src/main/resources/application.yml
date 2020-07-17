@@ -1,7 +1,12 @@
 server:
+  ## 开启优雅停机, 如果不配置是默认IMMEDIATE, 立即停机
+  shutdown: graceful
   port: 8077
 
 spring:
+  lifecycle:
+    ## 优雅停机宽限期时间 default 30s
+    timeout-per-shutdown-phase: 20s
   application:
     name: school
   thymeleaf:
