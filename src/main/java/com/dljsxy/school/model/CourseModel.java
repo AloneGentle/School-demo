@@ -4,7 +4,7 @@ import lombok.Data;
 @Data
 public class CourseModel {
     private String name;
-    private int credit;
+    private long credit;
     private long teacher_id;
 
 

@@ -28,7 +28,7 @@ public class Course {
     private String name;
 
     @Column
-    private int credit;
+    private long credit;
 
     @Column
     private long teacher_id;
