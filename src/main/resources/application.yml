@@ -25,13 +25,13 @@ spring:
   datasource:
 #    driver-class-name:
 #    url: jdbc:mysql://127.0.0.1:3306/student_info?zeroDateTimeBehavior=CONVERT_TO_NULL&&&useAffectedRows=true
-    url: jdbc:mysql://10.100.71.31:8306/school_demo?zeroDateTimeBehavior=CONVERT_TO_NULL&&&useAffectedRows=true
+    url: jdbc:mysql://127.0.0.1:3306/school_demo?zeroDateTimeBehavior=CONVERT_TO_NULL&&&useAffectedRows=true&serverTimezone=GMT%2B8
     username: root
-    password: password
+    password: abcdef
 
   redis:
-    host: 10.100.71.31
-    port: 8379
+    host: 127.0.0.1
+    port: 6379
 
   profiles:
     active: default

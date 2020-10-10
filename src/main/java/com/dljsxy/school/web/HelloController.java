@@ -12,7 +12,7 @@ public class HelloController {
     @RequestMapping("/hello2")
     public String hello(Model mv) {
         StudentModel studentModel = new StudentModel();
-//        user.setName("nt");
+        //user.setName("nt");
         mv.addAttribute("user", studentModel);
         return "Hello";
     }
