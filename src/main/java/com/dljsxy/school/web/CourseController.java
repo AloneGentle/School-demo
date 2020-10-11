@@ -1,6 +1,7 @@
 package com.dljsxy.school.web;
 
 import com.dljsxy.school.entity.Course;
+import com.dljsxy.school.web.reqRes.AddCourseReq;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,5 +34,21 @@ public class CourseController {
         return "Hello";
     }
 
+    @RequestMapping("/add-course")
+    @ResponseBody
+    public long addCourse(AddCourseReq req){ return courseService.addCourse(req);}
 
+
+    @RequestMapping("/add")
+    @ResponseBody
+    public long addCourse(Long req){
+        if (req.equals(1L)){
+
+            throw new WebApiException(WebExceptionEnum.PARAM_ERROR);
+        }else if (req.equals(2L)){
+            throw new GenericJDBCException("xxx",new SQLException());
+        }else{
+            throw new RuntimeException();
+        }
+    }
 }

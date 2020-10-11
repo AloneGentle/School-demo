@@ -28,10 +28,10 @@ public class Course {
     private String name;
 
     @Column
-    private long credit;
+    private short credit;
 
     @Column
-    private long teacher_id;
+    private int teacher_id;
 
     @CreationTimestamp
     @Column
