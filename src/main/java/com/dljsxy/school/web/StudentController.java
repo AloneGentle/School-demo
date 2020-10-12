@@ -34,7 +34,7 @@ public class StudentController {
         Student student = studentService.getStudentInfoByName("run");
         BeanUtils.copyProperties(student, studentModel);
         mv.addAttribute("studentModel", studentModel);
-        return "Hello";
+        return "hello";
     }
 
     @RequestMapping("/add-student")

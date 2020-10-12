@@ -1,14 +1,10 @@
 package com.dljsxy.school.web;
 
 import com.dljsxy.school.constant.WebExceptionEnum;
-import com.dljsxy.school.entity.Student;
 import com.dljsxy.school.entity.Teacher;
 import com.dljsxy.school.exception.WebApiException;
-import com.dljsxy.school.model.StudentModel;
 import com.dljsxy.school.model.TeacherModel;
-import com.dljsxy.school.service.StudentService;
 import com.dljsxy.school.service.TeacherService;
-import com.dljsxy.school.web.reqRes.AddStudentReq;
 import com.dljsxy.school.web.reqRes.AddTeacherReq;
 import org.hibernate.exception.GenericJDBCException;
 import org.springframework.beans.BeanUtils;
@@ -34,7 +30,7 @@ public class TeacherController {
         Teacher teacher = teacherService.getTeacherInfoByName("run");
         BeanUtils.copyProperties(teacher,teacherModel);
         mv.addAttribute("teacher",teacherModel);
-        return "Hello";
+        return "hello";
     }
 
     @RequestMapping("/add-teacher")

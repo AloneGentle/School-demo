@@ -11,7 +11,6 @@ import com.dljsxy.school.model.CourseModel;
 import com.dljsxy.school.service.CourseService;
 import org.hibernate.exception.GenericJDBCException;
 import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ResponseBody;
 import java.sql.SQLException;
 
@@ -31,7 +30,7 @@ public class CourseController {
         BeanUtils.copyProperties(course, courseModel);
 
         mv.addAttribute("user", courseModel);
-        return "Hello";
+        return "hello";
     }
 
     @RequestMapping("/add-course")

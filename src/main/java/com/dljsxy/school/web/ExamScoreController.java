@@ -14,7 +14,7 @@ public class ExamScoreController {
         StudentModel studentModel = new StudentModel();
 //        user.setName("nt");
         mv.addAttribute("user", studentModel);
-        return "Hello";
+        return "hello";
     }
 
 
