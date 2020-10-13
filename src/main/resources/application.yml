@@ -4,6 +4,9 @@ server:
   port: 8077
 
 spring:
+  jackson:
+    date-format: com.fasterxml.jackson.databind.util.StdDateFormat
+    time-zone: GMT+8
   lifecycle:
     ## 优雅停机宽限期时间 default 30s
     timeout-per-shutdown-phase: 20s
@@ -32,6 +35,8 @@ spring:
   redis:
     host: 127.0.0.1
     port: 6379
+    lettuce:
+      shutdown-timeout: 100ms
 
   profiles:
     active: default

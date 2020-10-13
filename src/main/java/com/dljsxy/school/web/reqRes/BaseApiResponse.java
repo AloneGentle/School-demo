@@ -23,6 +23,10 @@ public class BaseApiResponse<T> {
     public BaseApiResponse() {
     }
 
+    public BaseApiResponse(T data) {
+        this.data = data;
+    }
+
     public BaseApiResponse(WebApiException e) {
         this.status = e.getCode();
         this.msg = e.getMessage();

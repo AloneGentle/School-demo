@@ -1,15 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
+<div th:replace="layout::head"></div>
+<body>
+
+<div th:replace="layout::jslib"></div>
 
 <div id="app">
     {{ message }}
+
+    <div>
+        {{ studentInfo }}
+    </div>
 </div>
 
 
 <script>
-    var app = new Vue({
+    const app = new Vue({
         el: '#app',
-        data: {
-            message: 'Hello Vue!'
+        data() {
+            return {
+                message: 'Hello Vue!',
+                studentInfo: null
+            }
+        },
+        mounted() {
+            axios.get('/student/info?name=tom')
+                .then(function (response) {
+                    this.studentInfo = response;
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         }
-    })
+    });
 </script>
+
+</body>
+<div th:replace="layout::footer"></div>
+</html>
+
+
+
+
+
