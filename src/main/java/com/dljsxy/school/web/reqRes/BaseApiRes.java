@@ -15,19 +15,19 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class BaseApiResponse<T> {
+public class BaseApiRes<T> {
     private int status;
     private String msg = "success";
     private T data;
 
-    public BaseApiResponse() {
+    public BaseApiRes() {
     }
 
-    public BaseApiResponse(T data) {
+    public BaseApiRes(T data) {
         this.data = data;
     }
 
-    public BaseApiResponse(WebApiException e) {
+    public BaseApiRes(WebApiException e) {
         this.status = e.getCode();
         this.msg = e.getMessage();
     }

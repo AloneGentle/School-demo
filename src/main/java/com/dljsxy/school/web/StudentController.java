@@ -3,7 +3,7 @@ package com.dljsxy.school.web;
 import com.dljsxy.school.entity.Student;
 import com.dljsxy.school.service.StudentService;
 import com.dljsxy.school.web.reqRes.AddStudentReq;
-import com.dljsxy.school.web.reqRes.BaseApiResponse;
+import com.dljsxy.school.web.reqRes.BaseApiRes;
 import com.dljsxy.school.web.reqRes.GetStudentReq;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,9 +22,9 @@ public class StudentController {
     }
 
     @RequestMapping("/info")
-    public BaseApiResponse<Student> info(GetStudentReq req) {
+    public BaseApiRes<Student> info(GetStudentReq req) {
         Student student = studentService.getStudentInfoByName(req.getName());
-        return new BaseApiResponse<>(student);
+        return new BaseApiRes<>(student);
     }
 
     @RequestMapping("/add")

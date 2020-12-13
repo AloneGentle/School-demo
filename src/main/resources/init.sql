@@ -32,7 +32,10 @@ create table teacher
     mod_time datetime     not null default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP comment '修改时间'
 ) ENGINE = InnoDB comment '教师信息表';
 
-INSERT INTO school_demo.student (id, birthday, start_year, name, email, add_time, mod_time)
-VALUES (1, '1970-01-01', 2019, 'tom', 'tom.2019', '2020-10-13 20:17:45', '2020-10-13 20:19:20');
-INSERT INTO school_demo.student (id, birthday, start_year, name, email, add_time, mod_time)
-VALUES (2, '1970-01-01', 2019, 'jerry', 'jerry.1', '2020-10-13 20:17:45', '2020-10-13 20:19:20');
+INSERT INTO school_demo.student (id, birthday, start_year, name, email, add_time, mod_time) VALUES (1, '1970-01-01', 2019, 'tom', 'tom.2019', '2020-10-13 20:17:45', '2020-10-13 20:19:20');
+INSERT INTO school_demo.student (id, birthday, start_year, name, email, add_time, mod_time) VALUES (2, '1970-01-01', 2019, 'jerry', 'jerry.1', '2020-10-13 20:17:45', '2020-10-13 20:19:20');
+
+
+INSERT INTO school_demo.teacher (name, email, add_time, mod_time) VALUES ('老张', 'zhang@ly.edu', '2020-12-05 17:35:16', '2020-12-05 17:35:16');
+INSERT INTO school_demo.teacher (name, email, add_time, mod_time) VALUES ('William Jafferson', 'William@ly.edu', '2020-12-05 17:35:16', '2020-12-05 17:35:16');
+INSERT INTO school_demo.teacher (name, email, add_time, mod_time) VALUES ('George Bush', 'Bush@ly.edu', '2020-12-05 17:35:16', '2020-12-05 17:35:30');
