@@ -1,14 +1,15 @@
 package com.dljsxy.school.service;
 
-import com.dljsxy.school.entity.User;
+import com.dljsxy.school.constant.WebExceptionEnum;
+import com.dljsxy.school.exception.WebApiException;
+import com.dljsxy.school.repository.UserRepository;
 import com.dljsxy.school.vo.LoginReq;
 import com.dljsxy.school.vo.LoginRes;
 import com.dljsxy.school.vo.UserInfoRes;
 import com.dljsxy.school.web.reqRes.AddUserReq;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import com.dljsxy.school.repository.UserRepository;
-
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -19,18 +20,31 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserRepository userRepository;
 
-
-    @Override
-    public User getUserInfoByName(String username) {
-        return userRepository.findByUserName(username);
-    }
-
     @Override
     public LoginRes login(LoginReq req) {
-        var ret = new LoginRes();
         log.info("login, req={}", req);
-        ret.setToken("token 2iosjifjsdf88232");
+        var ret = new LoginRes();
+        var username = req.getUsername();
+        if (!StringUtils.hasLength(username)) {
+            throw new WebApiException(WebExceptionEnum.PARAM_ERROR);
+        }
+
+        var user = userRepository.findByUserName(username);
+        if (user == null) {
+            throw new WebApiException(WebExceptionEnum.PARAM_ERROR);
+        }
+
+        if (user.getPassword().equals(req.getPassword())) {
+            ret.setToken(genToken(req.getUsername()));
+        } else {
+            throw new WebApiException(WebExceptionEnum.PASSWORD_ERROR);
+        }
         return ret;
+    }
+
+    String genToken(String username) {
+        // TODO impl genToken
+        return "token 2iosjifjsdf88232";
     }
 
     @Override

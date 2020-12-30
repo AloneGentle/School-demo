@@ -19,6 +19,8 @@ public enum WebExceptionEnum {
      */
     PARAM_ERROR(2, "参数错误"),
 
+    PASSWORD_ERROR(3, "密码错误"),
+
     ;
 
     private int code;
