@@ -31,6 +31,14 @@ create table teacher
     add_time datetime     not null default CURRENT_TIMESTAMP comment '创建时间',
     mod_time datetime     not null default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP comment '修改时间'
 ) ENGINE = InnoDB comment '教师信息表';
+create table user
+(
+    id       bigint       not null primary key auto_increment,
+    username     varchar(64)  not null default '' comment 'username',
+    password     varchar(64)  not null default '' comment 'password',
+    add_time datetime     not null default CURRENT_TIMESTAMP comment '创建时间',
+    mod_time datetime     not null default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP comment '修改时间'
+) ENGINE = InnoDB comment '用户信息表';
 
 INSERT INTO school_demo.student (id, birthday, start_year, name, email, add_time, mod_time) VALUES (1, '1970-01-01', 2019, 'tom', 'tom.2019', '2020-10-13 20:17:45', '2020-10-13 20:19:20');
 INSERT INTO school_demo.student (id, birthday, start_year, name, email, add_time, mod_time) VALUES (2, '1970-01-01', 2019, 'jerry', 'jerry.1', '2020-10-13 20:17:45', '2020-10-13 20:19:20');
