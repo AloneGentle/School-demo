@@ -25,16 +25,16 @@ import java.time.LocalDateTime;
 @ToString
 
 
-public class Teacher {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column
-    private String name;
+    private String username;
 
     @Column
-    private String email;
+    private String password;
 
     @CreationTimestamp
     @Column
