@@ -34,6 +34,7 @@ public class UserServiceImpl implements UserService {
             throw new WebApiException(WebExceptionEnum.PARAM_ERROR);
         }
 
+        // TODO 防止密码数据泄露, 需要做摘要算法, 需要使用标准密码算法或手动加盐
         if (user.getPassword().equals(req.getPassword())) {
             ret.setToken(genToken(req.getUsername()));
         } else {
@@ -43,13 +44,16 @@ public class UserServiceImpl implements UserService {
     }
 
     String genToken(String username) {
-        // TODO impl genToken
+        // TODO impl genToken，实现生成token 算法，每个人每次登录生成不同的token，并记录登录时间 设置有效期
         return "token 2iosjifjsdf88232";
     }
 
     @Override
     public UserInfoRes info(String token) {
         var info = new UserInfoRes();
+        // 有效期内的token 才能返回info
+
+        // TODO token 要和下面的 info 关联上，一个token 对应一个登录会话，token 需要有效期限,长时间不登录要失效，登录中操作要刷新
         info.setName("Super Admin");
         info.setAvatar("https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
         info.setIntroduction("I am a super administrator");
@@ -59,12 +63,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Long addUser(AddUserReq user) {
+        // TODO 判断用户名是否已经存在, 做摘要后写入db
+        // 判断各个字段是否合法，字符串长度
         return null;
     }
 
 
     @Override
     public void logout() {
+        // TODO 清理该用户本次登录会话的token，
 
     }
 
