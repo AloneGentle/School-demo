@@ -4,10 +4,12 @@ import com.dljsxy.school.service.UserService;
 import com.dljsxy.school.vo.LoginReq;
 import com.dljsxy.school.vo.LoginRes;
 import com.dljsxy.school.vo.UserInfoRes;
+import com.dljsxy.school.web.reqRes.AddUserReq;
 import com.dljsxy.school.web.reqRes.BaseApiRes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -22,6 +24,12 @@ public class UserController {
         ret.setData(userService.login(req));
         return ret;
     }
+    @RequestMapping("/add-user")
+    @ResponseBody
+    public Long addUser(AddUserReq req) {
+        return userService.addUser(req);
+    }
+
 
     @RequestMapping("/logout")
     public BaseApiRes<Void> logout(String user) {
