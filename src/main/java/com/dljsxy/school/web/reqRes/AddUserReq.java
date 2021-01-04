@@ -13,6 +13,7 @@ public class AddUserReq {
     // TODO String 长度判断
     @NotNull
     @NotEmpty
-    private String name;
+    private String username;
+    private String password;
 
 }
