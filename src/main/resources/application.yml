@@ -26,16 +26,17 @@ spring:
     database: mysql
 
   datasource:
-#    driver-class-name:
-#    url: jdbc:mysql://10.227.79.136:3306/school_demo?zeroDateTimeBehavior=CONVERT_TO_NULL&&&useAffectedRows=true
-    url: jdbc:mysql://127.0.0.1:3306/school_demo?zeroDateTimeBehavior=CONVERT_TO_NULL&&&useAffectedRows=true&serverTimezone=GMT%2B8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://10.227.79.136:3306/school_demo?zeroDateTimeBehavior=CONVERT_TO_NULL&&&useAffectedRows=true
+#    url: jdbc:mysql://127.0.0.1:3306/school_demo?zeroDateTimeBehavior=CONVERT_TO_NULL&&&useAffectedRows=true&serverTimezone=GMT%2B8
     username: root
-    password: 190627
+    password: password
+#    password: 190627
 #    password: abcdef
 
   redis:
-#    host: 10.227.79.136
-    host: 127.0.0.1
+    host: 10.227.79.136
+#    host: 127.0.0.1
     port: 6379
     lettuce:
       shutdown-timeout: 100ms
