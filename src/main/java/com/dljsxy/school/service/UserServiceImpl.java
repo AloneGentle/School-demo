@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
         // TODO 防止密码数据泄露, 需要做摘要算法, 需要使用标准密码算法或手动加盐
         if (user.getPassword().equals(req.getPassword())) {
             ret.setToken(genToken(req.getUsername()));
-            getMD5(user.getPassword());
+            MD5Util.getMD5(user.getPassword(),16);
 
 
         } else {
@@ -84,23 +84,10 @@ public class UserServiceImpl implements UserService {
         }
             User user = new User();
         user.setUsername(req.getUsername());
-        user.setPassword(getMD5(req.getPassword()));
+        user.setPassword(MD5Util.getMD5(req.getPassword(),16));
 
 
         return userRepository.save(user).getId();
-    }
-    public static String getMD5(String str) {
-        try {
-            // 生成一个MD5加密计算摘要
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            // 计算md5函数
-            md.update(str.getBytes());
-            // digest()最后确定返回md5 hash值，返回值为8为字符串。因为md5 hash值是16位的hex值，实际上就是8位的字符
-            // BigInteger函数则将8位的字符串转换成16位hex值，用字符串来表示；得到字符串形式的hash值
-            return new BigInteger(1, md.digest()).toString(16);
-        } catch (Exception e) {
-            throw new WebApiException(WebExceptionEnum.PARAM_ERROR);
-        }
     }
 
     @Override
