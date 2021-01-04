@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
             throw new WebApiException(WebExceptionEnum.PARAM_ERROR);
         }
 
-        var user = userRepository.findByUserName(username);
+        var user = userRepository.findByUsername(username);
         if (user == null) {
             throw new WebApiException(WebExceptionEnum.PARAM_ERROR);
         }
@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
         // TODO 判断用户名是否已经存在, 做摘要后写入db
         // 判断各个字段是否合法，字符串长度
         var username = req.getUsername();
-        var user = userRepository.findByUserName(username);
+        var user = userRepository.findByUsername(username);
         if (user == null) {
             throw new WebApiException(WebExceptionEnum.PARAM_ERROR);
         }
