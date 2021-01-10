@@ -72,7 +72,8 @@ public class UserServiceImpl implements UserService {
         try {
             // set user info as json string use redis's set command with 1 hour expire
             // use JacksonUtil.MAPPER.writeValueAsString to serialize a User object to a JSON string.
-            // Instead of use JacksonUtil, an other way is use @Resource ObjectMapper like class StudentServiceImpl:27
+            // Instead of use JacksonUtil, an other way is use @Resource ObjectMapper like class StudentServiceImpl:27,
+            // the difference is JacksonUtil give you more control on ObjectMapper's configuration
             redis.opsForValue().set(token, JacksonUtil.MAPPER.writeValueAsString(user), 1, TimeUnit.HOURS);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
