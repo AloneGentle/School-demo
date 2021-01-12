@@ -37,7 +37,11 @@ create table user
     username     varchar(64)  not null default '' comment 'username',
     password     varchar(64)  not null default '' comment 'password',
     add_time datetime     not null default CURRENT_TIMESTAMP comment '创建时间',
-    mod_time datetime     not null default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP comment '修改时间'
+    mod_time datetime     not null default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP comment '修改时间',
+    name     varchar(64)  not null default '' comment 'Super Admin',
+    avatar   varchar(256) not null default '' comment 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+    introduction varchar(256) not null default '' comment 'I am a super administrator',
+    roles        varchar(64)  not null default '' comment 'admin'
 ) ENGINE = InnoDB comment '用户信息表';
 
 INSERT INTO school_demo.student (id, birthday, start_year, name, email, add_time, mod_time) VALUES (1, '1970-01-01', 2019, 'tom', 'tom.2019', '2020-10-13 20:17:45', '2020-10-13 20:19:20');

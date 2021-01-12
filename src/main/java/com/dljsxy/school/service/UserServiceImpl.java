@@ -67,6 +67,7 @@ public class UserServiceImpl implements UserService {
     String genToken(User user) {
         // TODO impl genToken，实现生成token 算法，每个人每次登录生成不同的token，并记录登录时间 设置有效期
         // use org.apache.commons.lang3.RandomUtils.nextInt() is better, not new a Random Object every time
+        //why 'org.apache.commons.lang3.RandomUtils.nextInt()' is better
         var str = (System.currentTimeMillis() + new Random().nextInt(999999999)) + user.getUsername();
         var token = DigestUtils.md5DigestAsHex(str.getBytes());
         try {
@@ -75,6 +76,7 @@ public class UserServiceImpl implements UserService {
             // Instead of use JacksonUtil, an other way is use @Resource ObjectMapper like class StudentServiceImpl:27,
             // the difference is JacksonUtil give you more control on ObjectMapper's configuration
             redis.opsForValue().set(token, JacksonUtil.MAPPER.writeValueAsString(user), 1, TimeUnit.HOURS);
+            //what is the meaning of 'redis.opsForValue'
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             throw new WebApiException(WebExceptionEnum.SYSTEM_ERROR);
@@ -103,13 +105,14 @@ public class UserServiceImpl implements UserService {
         // add new Columns (name,avatar,introduction,roles) to table user to save these info,
         // so these columns can be get by findByUsername and then save to redis with a key of token.
         // don't forget to change SQL statement in init.sql
+        // 使本次生成的token与 用户名相关联的用户信息联系在一起?
         info.setName("Super Admin");
         info.setAvatar("https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
         info.setIntroduction("I am a super administrator");
         info.setRoles(List.of("admin"));
         // please use cache info in redis instead of above code, delete code in line 104~107,
         //and use  BeanUtils.copyProperties(user, info) copy User Object to info Object, Why not return User Object to front end directly ? What's the difference between UserInfoRes and User?
-//        BeanUtils.copyProperties(user, info);
+        BeanUtils.copyProperties(user, info);
         return info;
     }
 
@@ -119,8 +122,8 @@ public class UserServiceImpl implements UserService {
         // 判断各个字段是否合法，字符串长度
         var username = req.getUsername();
         var user = userRepository.findByUsername(username);
-        // 写错了 是== 还是 !=
-        if (user == null) {
+        // 写错了 是== 还是 != ，明白了
+        if (user != null) {
             throw new WebApiException(WebExceptionEnum.PARAM_ERROR);
         }
         user.setUsername(req.getUsername());
@@ -133,7 +136,8 @@ public class UserServiceImpl implements UserService {
     public void logout() {
 
         // TODO 清理该用户本次登录会话的token，
-
+        //这里应该删除token=本次用户登录生成的token，我想通过username去查找，
+        redis.delete(token)= req.getUsername,
     }
 
 
