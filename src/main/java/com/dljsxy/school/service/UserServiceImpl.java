@@ -140,7 +140,8 @@ public class UserServiceImpl implements UserService {
     public void logout() {
         // TODO 清理该用户本次登录会话的token，
         //这里应该删除token=本次用户登录生成的token，我想通过username去查找，
-        String logout = redis.delete(JacksonUtil.MAPPER.writeValueAsString(user));
+        //String logout =
+                redis.delete(JacksonUtil.MAPPER.writeValueAsString(user));
 
         }
 }
