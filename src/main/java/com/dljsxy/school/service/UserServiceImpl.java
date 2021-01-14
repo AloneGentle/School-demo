@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
             throw new WebApiException(WebExceptionEnum.SYSTEM_ERROR);
         }
-        redis.opsForValue().set(token,cacheInfo);
+        redis.expire(token, 1, TimeUnit.HOURS);
         // TODO token 要和下面的 info 关联上，一个token 对应一个登录会话，token 需要有效期限,长时间不登录要失效，登录中操作要刷新
         //我认为我只需要关联info与token,'需要有效期限,长时间不登录要失效，登录中操作要刷新',这个TODO 在生成token的时候已经实现了吧
         // add new Columns (name,avatar,introduction,roles) to table user to save these info,
@@ -135,9 +135,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void logout() {
         // TODO 清理该用户本次登录会话的token，
-        var ret = new LoginRes();
-        var token = ret.getToken();
-        redis.delete(token);
+        var token = LoginRes.
+                redis.delete(token);
 
     }
 }
