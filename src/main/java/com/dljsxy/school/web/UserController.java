@@ -32,7 +32,7 @@ public class UserController {
 
 
     @RequestMapping("/logout")
-    public BaseApiRes<Void> logout(String user) {
+    public BaseApiRes<Void> logout(@RequestBody LoginRes res) {
         var ret = new BaseApiRes<Void>();
         userService.logout();
         return ret;

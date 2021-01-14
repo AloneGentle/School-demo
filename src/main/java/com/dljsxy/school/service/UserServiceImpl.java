@@ -135,9 +135,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void logout() {
         // TODO 清理该用户本次登录会话的token，
-        //这里应该删除token=本次用户登录生成的token，我想通过username去查找，
-        //String logout =
-                redis.delete(JacksonUtil.MAPPER.writeValueAsString(user));
+        var ret = new LoginRes();
+        var token = ret.getToken();
+        redis.delete(token);
 
-        }
+    }
 }
