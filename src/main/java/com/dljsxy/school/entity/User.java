@@ -8,13 +8,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.time.LocalDate;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 @DynamicUpdate
 @DynamicInsert
@@ -43,5 +37,17 @@ public class User {
     @UpdateTimestamp
     @Column
     private LocalDateTime modTime;
+
+    @Column
+    private String name;
+
+    @Column
+    private String avatar;
+
+    @Column
+    private String introduction;
+
+    @Column
+    private String roles;
 
 }

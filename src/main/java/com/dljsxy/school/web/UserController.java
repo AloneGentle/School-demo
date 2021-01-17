@@ -10,7 +10,6 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @Data
@@ -28,18 +27,15 @@ public class UserController {
     }
 
     @RequestMapping("/add-user")
-    @ResponseBody
     public Long addUser(AddUserReq req) {
         return userService.addUser(req);
     }
 
 
     @RequestMapping("/logout")
-    @RequestBody
-    public BaseApiRes<Void> logout(String user) {
+    public BaseApiRes<Void> logout(@RequestBody String token) {
         var ret = new BaseApiRes<Void>();
-        userService.logout();
-
+        userService.logout(token);
         return ret;
     }
 

@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
     String genToken(User user) {
         // TODO impl genToken，实现生成token 算法，每个人每次登录生成不同的token，并记录登录时间 设置有效期
         // use org.apache.commons.lang3.RandomUtils.nextInt() is better, not new a Random Object every time
-        var str = (System.currentTimeMillis() + RandomUtils.nextInt(0, 100000) + user.getUsername());
+        var str = System.currentTimeMillis() + RandomUtils.nextInt(0, 100000) + user.getUsername();
         var token = DigestUtils.md5DigestAsHex(str.getBytes());
         try {
             // set user info as json string use redis's set command with 1 hour expire
@@ -132,9 +132,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void logout() {
+    public void logout(String token) {
         // TODO 清理该用户本次登录会话的token，
-        //我是Java不会 跨类调用 私有变量了 token调不出来了
+        redis.delete(token);
+
 
     }
 }

@@ -13,6 +13,6 @@ public interface UserService {
 
     Long addUser(AddUserReq user);
 
-    void logout();
+    void logout(String token);
 
 }
