@@ -104,10 +104,6 @@ public class UserServiceImpl implements UserService {
         // don't forget to change SQL statement in init.sql
         // 使本次生成的token与 用户名相关联的用户信息联系在一起?
 
-        //info.setName("Super Admin");
-        //info.setAvatar("https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
-        //info.setIntroduction("I am a super administrator");
-        //info.setRoles(List.of("admin"));
         // please use cache info in redis instead of above code, delete code in line 104~107,
         //and use  BeanUtils.copyProperties(user, info) copy User Object to info Object, Why not return User Object to front end directly ? What's the difference between UserInfoRes and User?
         BeanUtils.copyProperties(user, info);
@@ -138,4 +134,13 @@ public class UserServiceImpl implements UserService {
 
 
     }
+
+    //转换用户名密码
+    public static void main(String[] args) {
+        User user = new User();
+        var BCryptPasswordEncoder = new BCryptPasswordEncoder();
+        user.setPassword(BCryptPasswordEncoder.encode(user.getPassword()));
+
+    }
+
 }
