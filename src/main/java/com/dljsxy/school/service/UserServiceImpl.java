@@ -11,10 +11,12 @@ import com.dljsxy.school.vo.UserInfoRes;
 import com.dljsxy.school.web.reqRes.AddUserReq;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,6 +36,14 @@ public class UserServiceImpl implements UserService {
     @Resource
     StringRedisTemplate redis;
 
+    @Autowired
+    ObjectMapper objectMapper;
+
+    public static void main(String[] args) {
+        var BCryptPasswordEncoder = new BCryptPasswordEncoder();
+        BCryptPasswordEncoder.encode("190627");
+
+    }
 
     @Override
     public LoginRes login(LoginReq req) {
@@ -72,7 +82,7 @@ public class UserServiceImpl implements UserService {
             // use JacksonUtil.MAPPER.writeValueAsString to serialize a User object to a JSON string.
             // Instead of use JacksonUtil, an other way is use @Resource ObjectMapper like class StudentServiceImpl:27,
             // the difference is JacksonUtil give you more control on ObjectMapper's configuration
-            redis.opsForValue().set(token, JacksonUtil.MAPPER.writeValueAsString(user), 1, TimeUnit.HOURS);
+            redis.opsForValue().set(token, objectMapper.writeValueAsString(user), 1, TimeUnit.HOURS);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             throw new WebApiException(WebExceptionEnum.SYSTEM_ERROR);
@@ -132,14 +142,6 @@ public class UserServiceImpl implements UserService {
         // TODO 清理该用户本次登录会话的token，
         redis.delete(token);
 
-
-    }
-
-    //转换用户名密码
-    public static void main(String[] args) {
-        User user = new User();
-        var BCryptPasswordEncoder = new BCryptPasswordEncoder();
-        user.setPassword(BCryptPasswordEncoder.encode(user.getPassword()));
 
     }
 

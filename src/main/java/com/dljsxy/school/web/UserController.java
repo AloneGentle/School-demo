@@ -8,6 +8,7 @@ import com.dljsxy.school.web.reqRes.AddUserReq;
 import com.dljsxy.school.web.reqRes.BaseApiRes;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,7 +34,7 @@ public class UserController {
 
 
     @RequestMapping("/logout")
-    public BaseApiRes<Void> logout(@RequestBody String token) {
+    public BaseApiRes<Void> logout(@CookieValue("vue_admin_template_token") String token) {
         var ret = new BaseApiRes<Void>();
         userService.logout(token);
         return ret;
