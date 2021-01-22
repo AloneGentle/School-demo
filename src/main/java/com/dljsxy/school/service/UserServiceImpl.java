@@ -11,9 +11,12 @@ import com.dljsxy.school.vo.UserInfoRes;
 import com.dljsxy.school.web.reqRes.AddUserReq;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.lang3.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,7 +24,6 @@ import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -34,6 +36,14 @@ public class UserServiceImpl implements UserService {
     @Resource
     StringRedisTemplate redis;
 
+    @Autowired
+    ObjectMapper objectMapper;
+
+    public static void main(String[] args) {
+        var BCryptPasswordEncoder = new BCryptPasswordEncoder();
+        BCryptPasswordEncoder.encode("190627");
+
+    }
 
     @Override
     public LoginRes login(LoginReq req) {
@@ -65,16 +75,14 @@ public class UserServiceImpl implements UserService {
     String genToken(User user) {
         // TODO impl genToken，实现生成token 算法，每个人每次登录生成不同的token，并记录登录时间 设置有效期
         // use org.apache.commons.lang3.RandomUtils.nextInt() is better, not new a Random Object every time
-        //why 'org.apache.commons.lang3.RandomUtils.nextInt()' is better
-        var str = (System.currentTimeMillis() + new Random().nextInt(999999999)) + user.getUsername();
+        var str = System.currentTimeMillis() + RandomUtils.nextInt(0, 100000) + user.getUsername();
         var token = DigestUtils.md5DigestAsHex(str.getBytes());
         try {
             // set user info as json string use redis's set command with 1 hour expire
             // use JacksonUtil.MAPPER.writeValueAsString to serialize a User object to a JSON string.
             // Instead of use JacksonUtil, an other way is use @Resource ObjectMapper like class StudentServiceImpl:27,
             // the difference is JacksonUtil give you more control on ObjectMapper's configuration
-            redis.opsForValue().set(token, JacksonUtil.MAPPER.writeValueAsString(user), 1, TimeUnit.HOURS);
-            //不知道JacksonUtil.MAPPER.writeValueAsString(user)'  是做什么的
+            redis.opsForValue().set(token, objectMapper.writeValueAsString(user), 1, TimeUnit.HOURS);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             throw new WebApiException(WebExceptionEnum.SYSTEM_ERROR);
@@ -98,7 +106,7 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
             throw new WebApiException(WebExceptionEnum.SYSTEM_ERROR);
         }
-        redis.opsForValue().set(token,cacheInfo);
+        redis.expire(token, 1, TimeUnit.HOURS);
         // TODO token 要和下面的 info 关联上，一个token 对应一个登录会话，token 需要有效期限,长时间不登录要失效，登录中操作要刷新
         //我认为我只需要关联info与token,'需要有效期限,长时间不登录要失效，登录中操作要刷新',这个TODO 在生成token的时候已经实现了吧
         // add new Columns (name,avatar,introduction,roles) to table user to save these info,
@@ -106,13 +114,10 @@ public class UserServiceImpl implements UserService {
         // don't forget to change SQL statement in init.sql
         // 使本次生成的token与 用户名相关联的用户信息联系在一起?
 
-        //info.setName("Super Admin");
-        //info.setAvatar("https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
-        //info.setIntroduction("I am a super administrator");
-        //info.setRoles(List.of("admin"));
         // please use cache info in redis instead of above code, delete code in line 104~107,
         //and use  BeanUtils.copyProperties(user, info) copy User Object to info Object, Why not return User Object to front end directly ? What's the difference between UserInfoRes and User?
         BeanUtils.copyProperties(user, info);
+        //这个不知道什么作的 查了没看明白
         return info;
     }
 
@@ -122,10 +127,10 @@ public class UserServiceImpl implements UserService {
         // 判断各个字段是否合法，字符串长度
         var username = req.getUsername();
         var user = userRepository.findByUsername(username);
-        // 写错了 是== 还是 != ，明白了
         if (user != null) {
             throw new WebApiException(WebExceptionEnum.PARAM_ERROR);
         }
+        user = new User();
         user.setUsername(req.getUsername());
         user.setPassword(DigestUtils.md5DigestAsHex(req.getPassword().getBytes()));
 
@@ -133,11 +138,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void logout() {
+    public void logout(String token) {
         // TODO 清理该用户本次登录会话的token，
-        //这里应该删除token=本次用户登录生成的token，我想通过username去查找，
-        //String logout =
-                redis.delete(JacksonUtil.MAPPER.writeValueAsString(user));
+        redis.delete(token);
 
-        }
+
+    }
+
 }
