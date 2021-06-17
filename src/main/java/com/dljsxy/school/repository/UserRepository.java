@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
 
-    User findByUsername(String username);// where user_name
+    User findByUsername(String username);// select * from user where user_name = ${username}
 
 }

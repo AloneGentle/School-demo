@@ -1,7 +1,7 @@
 # School-demo
 练习项目
 
-框架：JDK 15, springboot2+mysql8+redis+Caffeine, vue-admin
+框架：JDK 17, springboot2+mysql8+redis+Caffeine, vue-admin
 
 功能：学生信息管理、课程管理、考试成绩管理
 
