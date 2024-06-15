@@ -1,13 +1,14 @@
-package com.sut.school.service;
+package com.sut.school.service.impl;
 
-import com.sut.school.constant.CommonConst;
-import com.sut.school.entity.Student;
-import com.sut.school.repository.StudentRepository;
-import com.sut.school.utils.CacheUtil;
-import com.sut.school.web.reqRes.AddStudentReq;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sut.school.constant.CommonConst;
+import com.sut.school.entity.Student;
+import com.sut.school.repository.StudentRepository;
+import com.sut.school.service.StudentService;
+import com.sut.school.utils.CacheUtil;
+import com.sut.school.web.reqRes.AddStudentReq;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -62,8 +63,19 @@ public class StudentServiceImpl implements StudentService {
         Student student = new Student();
         student.setName(addStudentReq.getName());
         student.setEmail(addStudentReq.getName() + CommonConst.SCHOOL_EMAIL_SUFFIX);
-//        student.setBirthday(LocalDate.now());
+        student.setBirthday(addStudentReq.getBirthday());
+        student.setStartYear(addStudentReq.getStartYear());
         return studentRepository.save(student).getId();
+    }
+
+    @Override
+    public void updateStudent(long id, AddStudentReq updateStudentReq) {
+        Student student = studentRepository.findById(id).orElseThrow(() -> new RuntimeException("Teacher not found"));
+        student.setName(updateStudentReq.getName());
+        student.setEmail(updateStudentReq.getEmail());
+        student.setBirthday(updateStudentReq.getBirthday());
+        student.setStartYear(updateStudentReq.getStartYear());
+        studentRepository.save(student);
     }
 
     @Override
@@ -72,6 +84,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void deleteStudent(long id) {studentRepository.deleteById(id);}
+    public void deleteStudent(long id) {
+        studentRepository.deleteById(id);
+    }
 
 }

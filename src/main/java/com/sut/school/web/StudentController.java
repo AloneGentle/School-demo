@@ -4,7 +4,6 @@ import com.sut.school.entity.Student;
 import com.sut.school.service.StudentService;
 import com.sut.school.web.reqRes.AddStudentReq;
 import com.sut.school.web.reqRes.BaseApiRes;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,7 +14,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/student")
 public class StudentController {
-    @Autowired
     private final StudentService studentService;
 
     public StudentController(StudentService studentService) {
@@ -37,5 +35,10 @@ public class StudentController {
     @DeleteMapping("/delete-student/{id}")
     public void deleteStudent(@PathVariable long id) {
         studentService.deleteStudent(id);
+    }
+
+    @PutMapping("/update-student/{id}")
+    public void updateStudent(@PathVariable long id, @RequestBody AddStudentReq updateStudentReq) {
+        studentService.updateStudent(id, updateStudentReq);
     }
 }

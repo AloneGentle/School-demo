@@ -7,7 +7,6 @@ import com.sut.school.vo.UserInfoRes;
 import com.sut.school.web.reqRes.AddUserReq;
 import com.sut.school.web.reqRes.BaseApiRes;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    @Autowired
-    UserService userService;
+
+    private final UserService userService;
 
     @RequestMapping("/login")
     public BaseApiRes<LoginRes> login(@RequestBody LoginReq req) {

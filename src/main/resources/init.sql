@@ -27,27 +27,45 @@ create table teacher
 (
     id       bigint       not null primary key auto_increment,
     name     varchar(64)  not null default '' comment 'name',
+    age      int          not null default '' comment '年龄',
     email    varchar(128) not null default '' comment 'email',
     add_time datetime     not null default CURRENT_TIMESTAMP comment '创建时间',
     mod_time datetime     not null default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP comment '修改时间'
 ) ENGINE = InnoDB comment '教师信息表';
 create table user
 (
-    id       bigint       not null primary key auto_increment,
+    id           bigint       not null primary key auto_increment,
     username     varchar(64)  not null default '' comment 'username',
     password     varchar(64)  not null default '' comment 'password',
-    add_time datetime     not null default CURRENT_TIMESTAMP comment '创建时间',
-    mod_time datetime     not null default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP comment '修改时间',
-    name     varchar(64)  not null default '' comment 'Super Admin',
-    avatar   varchar(256) not null default '' comment 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+    add_time     datetime     not null default CURRENT_TIMESTAMP comment '创建时间',
+    mod_time     datetime     not null default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP comment '修改时间',
+    name         varchar(64)  not null default '' comment 'Super Admin',
+    avatar       varchar(256) not null default '' comment 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
     introduction varchar(256) not null default '' comment 'I am a super administrator',
     roles        varchar(64)  not null default '' comment 'admin'
 ) ENGINE = InnoDB comment '用户信息表';
+CREATE TABLE score
+(
+   id          BIGINT       NOT NULL PRIMARY KEY AUTO_INCREMENT,
+   student_id  BIGINT       NOT NULL COMMENT '学生ID',
+   course_id   BIGINT       NOT NULL COMMENT '课程ID',
+   score       INT          NOT NULL DEFAULT 0 COMMENT '成绩',
+   add_time    DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+   mod_time    DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+   CONSTRAINT fk_student FOREIGN KEY (student_id) REFERENCES student(id),
+   CONSTRAINT fk_course FOREIGN KEY (course_id) REFERENCES course(id)
+) ENGINE = InnoDB COMMENT '成绩信息表';
 
-INSERT INTO school_demo.student (id, birthday, start_year, name, email, add_time, mod_time) VALUES (1, '1970-01-01', 2019, 'tom', 'tom.2019', '2020-10-13 20:17:45', '2020-10-13 20:19:20');
-INSERT INTO school_demo.student (id, birthday, start_year, name, email, add_time, mod_time) VALUES (2, '1970-01-01', 2019, 'jerry', 'jerry.1', '2020-10-13 20:17:45', '2020-10-13 20:19:20');
+
+INSERT INTO school_demo.student (id, birthday, start_year, name, email, add_time, mod_time)
+VALUES (1, '1970-01-01', 2019, 'tom', 'tom.2019', '2020-10-13 20:17:45', '2020-10-13 20:19:20');
+INSERT INTO school_demo.student (id, birthday, start_year, name, email, add_time, mod_time)
+VALUES (2, '1970-01-01', 2019, 'jerry', 'jerry.1', '2020-10-13 20:17:45', '2020-10-13 20:19:20');
 
 
-INSERT INTO school_demo.teacher (name, email, add_time, mod_time) VALUES ('老张', 'zhang@ly.edu', '2020-12-05 17:35:16', '2020-12-05 17:35:16');
-INSERT INTO school_demo.teacher (name, email, add_time, mod_time) VALUES ('William Jafferson', 'William@ly.edu', '2020-12-05 17:35:16', '2020-12-05 17:35:16');
-INSERT INTO school_demo.teacher (name, email, add_time, mod_time) VALUES ('George Bush', 'Bush@ly.edu', '2020-12-05 17:35:16', '2020-12-05 17:35:30');
+INSERT INTO school_demo.teacher (name, email, add_time, mod_time)
+VALUES ('老张', 'zhang@ly.edu', '2020-12-05 17:35:16', '2020-12-05 17:35:16');
+INSERT INTO school_demo.teacher (name, email, add_time, mod_time)
+VALUES ('William Jafferson', 'William@ly.edu', '2020-12-05 17:35:16', '2020-12-05 17:35:16');
+INSERT INTO school_demo.teacher (name, email, add_time, mod_time)
+VALUES ('George Bush', 'Bush@ly.edu', '2020-12-05 17:35:16', '2020-12-05 17:35:30');

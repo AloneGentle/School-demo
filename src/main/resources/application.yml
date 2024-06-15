@@ -16,19 +16,22 @@ spring:
     cache: false
 
   jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: validate
-      naming:
-        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-    database-platform: org.hibernate.dialect.MySQL8Dialect
-    open-in-view: false
-    database: mysql
+    properties:
+      show-sql: true
+      hibernate:
+      jdbc:
+        time_zone: Asia/Shanghai
+        ddl-auto: validate
+        naming:
+          physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+      database-platform: org.hibernate.dialect.MySQL8Dialect
+      open-in-view: false
+      database: mysql
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     #    url: jdbc:mysql://10.227.79.136:3306/school_demo?zeroDateTimeBehavior=CONVERT_TO_NULL&&&useAffectedRows=true
-    url: jdbc:mysql://127.0.0.1:3306/school_demo?zeroDateTimeBehavior=CONVERT_TO_NULL&&&useAffectedRows=true&serverTimezone=GMT%2B8
+    url: jdbc:mysql://127.0.0.1:3306/school_demo?zeroDateTimeBehavior=CONVERT_TO_NULL&&&useAffectedRows=true&serverTimezone=Asia/Shanghai
     username: root
     #   password: password
     password: 190627

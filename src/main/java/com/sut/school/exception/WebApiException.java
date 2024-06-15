@@ -9,13 +9,12 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
- *
  * @author ningtao
  */
 @ToString
 @Getter
 public class WebApiException extends RuntimeException {
-    private final int  code;
+    private final int code;
 
     public WebApiException(WebExceptionEnum e) {
         super(e.getMsg());

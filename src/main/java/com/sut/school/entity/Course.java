@@ -28,6 +28,9 @@ public class Course {
     @Column
     private int teacher_id;
 
+    @Column
+    private String teacher_name;
+
     @CreationTimestamp//Hibernate 提供的注解,用于自动将实体创建时的时间戳记录到数据库中。
     @Column//JPA 提供的注解,用于指定实体类的字段与数据库表中的列之间的映射关系,可以配置列的各种属性。(nullable = false, updatable = false)不能为空，在更新实体时不能被修改。
     private LocalDateTime addTime;// 是 Java 8 引入的新日期时间 API 的一部分，表示日期和时间

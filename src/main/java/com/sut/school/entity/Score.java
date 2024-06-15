@@ -1,5 +1,6 @@
 package com.sut.school.entity;
 
+
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
@@ -14,23 +15,27 @@ import java.time.LocalDateTime;
 @Table
 @Entity
 @Data
-public class Teacher {
+public class Score {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @Column
-    private String name;
+    @Column(unique = true, nullable = false)
+    private Long studentId;
 
-    @Column
-    private int age;
+    @Column(nullable = false)
+    private Long courseId;
 
+    @Column(nullable = false)
+    private Long score;
+
+    @Column(nullable = false)
     @CreationTimestamp
-    @Column
     private LocalDateTime addTime;
 
+    @Column(nullable = false)
     @UpdateTimestamp
-    @Column
-    private LocalDateTime modTime;
+    public LocalDateTime modTime;
+
 
 }

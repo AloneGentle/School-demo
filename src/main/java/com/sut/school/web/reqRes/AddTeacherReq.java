@@ -13,6 +13,6 @@ public class AddTeacherReq {
 
     @NotNull
     @NotEmpty
-    private String email;
+    private int age;
 
 }

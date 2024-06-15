@@ -4,9 +4,7 @@
 
 package com.sut.school.constant;
 
-import lombok.Data;
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  * for web api
@@ -28,8 +26,8 @@ public enum WebExceptionEnum {
 
     ;
 
-    private int code;
-    private String msg;
+    private final int code;
+    private final String msg;
 
     WebExceptionEnum(int code, String msg) {
         this.code = code;

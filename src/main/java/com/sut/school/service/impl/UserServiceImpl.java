@@ -1,17 +1,18 @@
-package com.sut.school.service;
+package com.sut.school.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sut.school.constant.WebExceptionEnum;
 import com.sut.school.entity.User;
 import com.sut.school.exception.WebApiException;
 import com.sut.school.repository.UserRepository;
+import com.sut.school.service.UserService;
 import com.sut.school.utils.JacksonUtil;
 import com.sut.school.vo.LoginReq;
 import com.sut.school.vo.LoginRes;
 import com.sut.school.vo.UserInfoRes;
 import com.sut.school.web.reqRes.AddUserReq;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -101,7 +102,8 @@ public class UserServiceImpl implements UserService {
         }
         User user;
         try {
-            user = JacksonUtil.MAPPER.readValue(cacheInfo, new TypeReference<>() {});
+            user = JacksonUtil.MAPPER.readValue(cacheInfo, new TypeReference<>() {
+            });
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             throw new WebApiException(WebExceptionEnum.SYSTEM_ERROR);

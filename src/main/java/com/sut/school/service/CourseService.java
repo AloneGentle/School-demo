@@ -9,6 +9,9 @@ public interface CourseService {
 
     long addCourse(AddCourseReq course);
 
+    void updateCourse(long id,AddCourseReq updateCourseReq);
+
+
     void deleteCourse(long id);
 
     List<Course> listCourse();
